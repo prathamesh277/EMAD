@@ -1,0 +1,64 @@
+package com.example.set5;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+
+import java.util.Scanner;
+
+public class MainActivity extends AppCompatActivity {
+    private EditText name,password;
+    private Button button;
+    private TextView display;
+    Scanner data;
+    String un,pass;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        name=findViewById(R.id.name);
+        password=findViewById(R.id.password);
+        display=findViewById(R.id.display);
+        button=findViewById(R.id.button);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                boolean flag = false;
+                data = new Scanner(getResources().openRawResource(R.raw.logindetails));
+                while(data.hasNext())
+                {
+                    String [] user = data.nextLine().split("\\s+");
+                    un=user[0];
+                    pass=user[1];
+                    if(name.getText().toString().equals(un) && password.getText().toString().equals(pass))
+                    {
+                        flag=true;
+                        break;
+                    }
+                }
+                if(flag)
+                {
+                    display.setText("Login Successful");
+                    new AlertDialog.Builder(MainActivity.this)
+                            .setTitle("user Auth")
+                            .setMessage("Login Success")
+                            .setCancelable(true).show();
+                }
+                else
+                {
+                    display.setText("Login Failed");
+                    new AlertDialog.Builder(MainActivity.this)
+                            .setTitle("user Auth")
+                            .setMessage("Login Failed")
+                            .setCancelable(true).show();
+                }
+            }
+        });
+    }
+}

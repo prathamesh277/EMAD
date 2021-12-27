@@ -1,0 +1,43 @@
+package com.example.set3b;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.RadioButton;
+import android.widget.Toast;
+
+public class MainActivity extends AppCompatActivity {
+    private RadioButton cse,ece,it;
+    private Button button;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        cse=findViewById(R.id.CSE);
+        ece=findViewById(R.id.ECE);
+        it=findViewById(R.id.IT);
+        button=findViewById(R.id.button);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String branch = null;
+                if(cse.isChecked())
+                {
+                    branch=cse.getText().toString();
+                }
+                else if(ece.isChecked())
+                {
+                    branch=ece.getText().toString();
+                }
+                else if (it.isChecked())
+                {
+                    branch=it.getText().toString();
+                }
+                Toast.makeText(MainActivity.this, branch, Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+}

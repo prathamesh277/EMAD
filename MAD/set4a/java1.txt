@@ -1,0 +1,45 @@
+package com.example.set4a;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
+
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.os.Build;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
+
+public class MainActivity extends AppCompatActivity {
+    private Button button;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        button=findViewById(R.id.button);
+        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.O)
+        {
+            NotificationChannel channel=new NotificationChannel("notify","my", NotificationManager.IMPORTANCE_DEFAULT);
+            NotificationManager manager = getSystemService(NotificationManager.class);
+            manager.createNotificationChannel(channel);
+        }
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                NotificationCompat.Builder builder = new NotificationCompat.Builder(MainActivity.this,"notify");
+                builder.setSmallIcon(R.drawable.ic_launcher_background);
+                builder.setContentTitle("Mad External");
+                builder.setContentText("This is MAD lab external exam");
+                builder.setAutoCancel(true);
+
+                NotificationManagerCompat managerCompat=NotificationManagerCompat.from(MainActivity.this);
+                managerCompat.notify(1,builder.build());
+
+                Toast.makeText(MainActivity.this, "This is MAD lab external exam", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+}

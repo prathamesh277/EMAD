@@ -1,0 +1,50 @@
+package com.example.set2;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.TextView;
+
+public class MainActivity extends AppCompatActivity {
+    private EditText name,password,address,age;
+    private RadioButton male,female;
+    private Button button;
+    private TextView result;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        name=findViewById(R.id.name);
+        password=findViewById(R.id.password);
+        address=findViewById(R.id.address);
+        male=findViewById(R.id.male);
+        female=findViewById(R.id.female);
+        age=findViewById(R.id.age);
+        button=findViewById(R.id.button);
+        result=findViewById(R.id.result);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String n=name.getText().toString();
+                String p=password.getText().toString();
+                String ad=address.getText().toString();
+                String a=age.getText().toString();
+                String gender=null;
+                if(male.isChecked())
+                {
+                    gender=male.getText().toString();
+                }
+                else if(female.isChecked())
+                {
+                    gender=female.getText().toString();
+                }
+                result.setText("Name :"+n+"\n"+"Password :"+p+"\n"+"Address: "+ad+"\n"+"Age :"+a+"\n"+"Gender :"+gender);
+            }
+        });
+    }
+}
